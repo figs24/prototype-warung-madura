@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementArrow : MonoBehaviour
 {
-    float speed = 200f;
+    public float speed = 300f;
     private Rigidbody rb;
     float verticalMove;
     float horizontalMove;
