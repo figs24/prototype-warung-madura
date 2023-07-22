@@ -24,18 +24,22 @@ public class MovementWASD : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             horizontalMove = -1;
+            transform.rotation = Quaternion.Euler(0, 270, 0);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             horizontalMove = 1;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
             verticalMove = 1;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             verticalMove = -1;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
@@ -46,11 +50,5 @@ public class MovementWASD : MonoBehaviour
         {
             horizontalMove = 0;
         }
-
-
-        //float hAxis = Input.GetAxis("Horizontal");
-        //float vAxis = Input.GetAxis("Vertical");
-        //rb.velocity = (transform.forward * vAxis) * speed * Time.deltaTime;
-        //transform.Rotate((transform.up * hAxis) * rotation * Time.deltaTime);
     }
 }

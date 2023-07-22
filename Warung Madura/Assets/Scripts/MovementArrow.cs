@@ -24,18 +24,22 @@ public class MovementArrow : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             horizontalMove = -1;
+            transform.rotation = Quaternion.Euler(0, 270, 0);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             horizontalMove = 1;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             verticalMove = 1;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             verticalMove = -1;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
