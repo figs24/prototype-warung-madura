@@ -4,51 +4,47 @@ using UnityEngine;
 
 public class MovementWASD : MonoBehaviour
 {
-    public float speed = 300f;
+    public float speed = 12f;
     private Rigidbody rb;
     float verticalMove;
     float horizontalMove;
+    Vector3 input;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        verticalMove = 0;
-        horizontalMove = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector3(horizontalMove * speed * Time.deltaTime, 0f, verticalMove * speed * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            horizontalMove = -1;
-            transform.rotation = Quaternion.Euler(0, 270, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            horizontalMove = 1;
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            verticalMove = 1;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            verticalMove = -1;
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
+        ReadInput();
+    }
 
-        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
-        {
-            verticalMove = 0;
-        }
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            horizontalMove = 0;
-        }
+    private void FixedUpdate()
+    {
+        Move();
+        Look();
+    }
+
+    private void ReadInput()
+    {
+        input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    }
+
+    private void Move()
+    {
+        rb.MovePosition(transform.position + input * speed * Time.fixedDeltaTime);
+    }
+
+    private void Look()
+    {
+        if (input == Vector3.zero) return;
+
+        var relative = (transform.position + input) - transform.position;
+        var rotation = Quaternion.LookRotation(relative, Vector3.up);
+
+        transform.rotation = rotation;
     }
 }
