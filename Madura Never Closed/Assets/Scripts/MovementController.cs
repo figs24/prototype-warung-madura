@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementWASD : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
-    public float speed = 12f;
+    [SerializeField] private float speed = 12f;
+    [SerializeField] private ParticleSystem dustVFX;
+    [SerializeField] private string horizontalInputName;
+    [SerializeField] private string verticalInputName;
     private Rigidbody rb;
     float verticalMove;
     float horizontalMove;
     Vector3 input;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,11 +31,12 @@ public class MovementWASD : MonoBehaviour
     {
         Move();
         Look();
+        SpawnDust();
     }
 
     private void ReadInput()
     {
-        input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        input = new Vector3(Input.GetAxis(horizontalInputName), 0, Input.GetAxis(verticalInputName));
     }
 
     private void Move()
@@ -46,5 +52,19 @@ public class MovementWASD : MonoBehaviour
         var rotation = Quaternion.LookRotation(relative, Vector3.up);
 
         transform.rotation = rotation;
+    }
+
+    private void SpawnDust()
+    {
+        if (input != Vector3.zero && !dustVFX.isPlaying)
+        {
+            dustVFX.Play();
+        }
+        else if (input == Vector3.zero && dustVFX.isPlaying)
+        {
+            dustVFX.Stop();
+        };
+
+        animator.SetBool("isMoving", input != Vector3.zero);
     }
 }
