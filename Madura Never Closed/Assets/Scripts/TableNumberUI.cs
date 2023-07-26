@@ -12,8 +12,7 @@ public class TableNumberUI : MonoBehaviour
     {
         cam = Camera.main;
     }
-
-
+    
     // Update is called once per frame
     void Update()
     {

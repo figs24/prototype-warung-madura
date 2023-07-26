@@ -8,26 +8,14 @@ public class ServingTableController : MonoBehaviour
     [SerializeField] private GameObject request;
     [SerializeField] private GameObject customer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnCollisionEnter(Collision other)
     {
         foreach (var item in items)
         {
             if (other.gameObject.CompareTag(item))
             {
-                items.Remove(item);
                 Destroy(other.gameObject);
+                items.Remove(item);
                 if (items.Count == 0)
                 {
                     Destroy(request);
