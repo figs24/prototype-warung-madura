@@ -30,10 +30,10 @@ public class PlayerInteract : MonoBehaviour
                 {
                     interactable.BaseInteract();
                 }
-                
-                if (Input.GetKeyDown(pickKeyCode) && currentStock > 0)
+
+                if (Input.GetKeyDown(pickKeyCode))
                 {
-                    if (heldObj == null)
+                    if (heldObj == null && currentStock > 0)
                     {
                         interactable.GetComponent<Product>().ReduceStock();
                         PickupObject(hit.transform.gameObject);
@@ -50,7 +50,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
     }
-    
+
     void MoveObject()
     {
         if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
